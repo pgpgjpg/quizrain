@@ -1,5 +1,7 @@
 #include "map.h"
 
+void* rain_thread(void *arg);
+
 void Map::showFrame(char ch)
 {
     int gap = 2;
@@ -54,7 +56,22 @@ void Map::showName(string name)
 
 void Map::showRain(vector<string> answers, int fallingTime)
 {
+    int n = answers.size();    
+    nThreads = n;
+    int rainX = (width - 2)/n;
+    
+    vThreads = new pthread_t[n];
+    sr = new StringRain[n];
 
+    for(int i = 0; i < n; ++i){
+        int s_x = rainX*i + 3;
+        int s_y = origin_y + 3;
+
+        sr[i].set(s_x, s_y, height-4, answers[i], fallingTime);    
+        pthread_create(&vThreads[i], NULL, rain_thread, &sr[i]);            
+    }       
+    for(int i = 0; i < n; ++i)
+        pthread_join(vThreads[i], (void **)NULL);
 }   
 
 void Map::removeQuiz()
@@ -75,10 +92,31 @@ void Map::removeName()
 
 void Map::removeRain()
 {
-
+    // 미완성
+    for(int i = 0; i < nThreads; ++i)
+        pthread_cancel(vThreads[i]);
 }
 
 string Map::getAnswer()
 {
-    return "NULL";
+    string res;
+    // char c;
+    // int cnt = 0;
+    // while(c != '\n'){
+    //     c = getchar();
+    //     gotoxy(origin_x + 6 + cnt, origin_y + height - 4);
+    //     putchar(c);
+    //     ++cnt;
+    //     res += c;        
+    // }
+    return res;
+}
+
+void* rain_thread(void *arg)
+{
+    StringRain* tmp = (StringRain*)arg; 
+    
+    tmp->show();
+
+    return NULL;
 }

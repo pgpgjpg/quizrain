@@ -155,12 +155,15 @@ protected:
     double speed;
 
 public:
-	StringRain(int ax, int ay, int height, string text, double speed) : Point(ax, ay) { this->height = height; this->text = text; this->speed = speed;}
+    StringRain():Point(0, 0) {}
+	StringRain(int ax, int ay, int height, string text, int speed) : Point(ax, ay) { this->height = height; this->text = text; this->speed = speed;}
+    void set(int ax, int ay, int height, string text, int speed) { x = ax; y = ay; this->height = height; this->text = text; this->speed = speed;}
 	void show() {   
         for(int r = y; r < height; ++r){
             gotoxy(x, r);        
             cout << text << endl;
-            sleep(speed);   
+            //fflush(stdout);
+            usleep(speed);   
             gotoxy(x, r);      
             for(int i = 0; i < text.length(); ++i) putchar(' ');
         }          
@@ -175,6 +178,9 @@ class Map{
     int height;
     int time;
     int maxLenStr;
+    int nThreads;
+    
+    bool stopRain;
 
     Text textQuiz;    
     Text textScore;
@@ -182,9 +188,14 @@ class Map{
     
     string strAnswer;
     string strName;
+
+    pthread_t *vThreads;    
+    StringRain *sr;
     
 public:
+    Map() : width(100), height(25), origin_x(0), origin_y(2), maxLenStr(100/2-2) {}
     Map(int w, int h) : width(w), height(h), origin_x(0), origin_y(2), maxLenStr(w/2-2) {}
+    ~Map() {delete [] vThreads; delete [] sr;}
     void showFrame(char ch);    
     void showQuiz(string text);        
     void showRain(vector<string> answers, int fallingTime);        
@@ -194,7 +205,7 @@ public:
     void removeQuiz();
     void removeRain();
     void removeScore();
-    void removeName();
+    void removeName();   
 
     string getAnswer();
 };
