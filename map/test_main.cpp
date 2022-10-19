@@ -14,9 +14,9 @@ int main()
     map.showName("jpg");
     fflush(stdout);
 
-vector<string> as = {"abcd", "dasewqe", "qweqwr", "qwewqe", "qwe12312"};
-        map.showRain(as, 500000);
-
+    vector<string> as = {"abcd", "dasewqe", "qweqwr", "qwewqe", "qwe12312"};
+    map.showRain(as, 500000);
+    sleep(10);
     // while(true){
     //     //usleep(10000);
     //     vector<string> as = {"abcd", "dasewqe", "qweqwr", "qwewqe", "qwe12312"};
