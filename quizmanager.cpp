@@ -1,6 +1,7 @@
 #include "quizmanager.h"
 #include <exception>
 #include <memory>
+#include <iomanip>
 
 struct NotOX : exception {
   const char* what() const noexcept {return "O나 X를 입력하세요.\n";}
@@ -69,4 +70,27 @@ void QuizManager:: showQuizList() const{
 	vector<Quiz*>::const_iterator it;
 	for(it = quizList.begin(); it != quizList.end(); it++)
 		cout << (*it)->getQuestion() << endl;
+
+}
+
+int QuizManager::getNumQuiz(){
+	return quizList.size();
+}
+
+string QuizManager::getQuiz(int n){
+	//vector<Quiz*>::const_iterator it;
+	//it = quizList.at(n);
+	return (quizList.at(n))->getQuestion();
+}
+
+bool QuizManager::callCheckAnswer(int n, string choice_answer){
+	return quizList[n]->checkAnswer(choice_answer);
+	/*
+	vector<Quiz*>::const_iterator it;
+	for(it = quizList.begin(); it != quizList.end(); it++){
+		if(question == (*it)->getQuestion());
+			return (*it)->checkAnswer(choice_answer);
+	}
+	*/
+	//return false;
 }

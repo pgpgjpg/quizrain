@@ -19,4 +19,7 @@ public:
 	void playQuiz();
     void fileRead(ifstream &fin);
     void showQuizList() const;
+    int getNumQuiz();
+    string getQuiz(int n);
+    bool callCheckAnswer(int n, string choice_answer);
 };

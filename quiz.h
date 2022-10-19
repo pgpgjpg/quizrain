@@ -15,4 +15,5 @@ public:
     string getQuestion();
     string setQuestion();
     void fileRead(ifstream &fin);
+    virtual bool checkAnswer(string choice_answer) = 0;
 };
