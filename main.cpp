@@ -37,5 +37,7 @@ int main(void)
     if (manager.callCheckAnswer(1, "3") == true)
         cout << "정답입니다." << endl;
     else cout << "오답입니다." << endl;
+
+    cout << "git test" << endl;
 	return 0;
 }
