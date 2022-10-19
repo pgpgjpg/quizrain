@@ -7,4 +7,5 @@ public:
     string choiceAnswer(string ans);
     string getAnswer();
     void showAnswer();
+    bool checkAnswer(string choosen_ans);
 };

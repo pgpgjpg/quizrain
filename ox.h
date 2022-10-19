@@ -7,4 +7,5 @@ public:
     char choiceAnswer(char ox);
     char getAnswer();
     void showAnswer();
+    bool checkAnswer(string choosen_ans);
 };

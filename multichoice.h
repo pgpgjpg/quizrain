@@ -8,4 +8,5 @@ public:
     int choiceAnswer(int n);
     int getAnswer();
     void showAnswer();
+    bool checkAnswer(string choosen_ans);
 };

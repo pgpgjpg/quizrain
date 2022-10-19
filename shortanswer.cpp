@@ -11,3 +11,10 @@ string ShortAnswer::getAnswer(){ return answer ;}
 void ShortAnswer::showAnswer(){
     cout << "정답은 " << getAnswer() << " 입니다." << endl;
 }
+
+bool ShortAnswer::checkAnswer(string choosen_ans){
+    if (this->answer == choosen_ans)
+        return true;
+    else   
+        return false;
+}

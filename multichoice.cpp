@@ -15,3 +15,10 @@ int MultiChoice::getAnswer(){ return answer ;}
 void MultiChoice::showAnswer(){
     cout << "정답은 " << getAnswer() << " 입니다." << endl;
 }
+
+bool MultiChoice::checkAnswer(string choosen_ans){
+    if (this->answer == stoi(choosen_ans))
+        return true;
+    else   
+        return false;
+}
