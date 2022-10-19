@@ -22,4 +22,5 @@ public:
     int getNumQuiz();
     string getQuiz(int n);
     bool callCheckAnswer(int n, string choice_answer);
+    vector<string> sendGetAnswers();
 };

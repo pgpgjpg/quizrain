@@ -94,3 +94,7 @@ bool QuizManager::callCheckAnswer(int n, string choice_answer){
 	*/
 	//return false;
 }
+
+vector<string> QuizManager::sendGetAnswers(){
+	return quizList[1]->getAnswers();
+}

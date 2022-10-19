@@ -22,3 +22,15 @@ bool MultiChoice::checkAnswer(string choosen_ans){
     else   
         return false;
 }
+
+vector<string> MultiChoice::getAnswers()
+{
+    vector<string> res;
+    res.push_back(this->s1);
+    res.push_back(this->s2);
+    res.push_back(this->s3);
+    res.push_back(this->s4);
+
+    return res;
+}
+

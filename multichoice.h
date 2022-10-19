@@ -9,4 +9,5 @@ public:
     int getAnswer();
     void showAnswer();
     bool checkAnswer(string choosen_ans);
+    vector<string> getAnswers();
 };
