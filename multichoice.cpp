@@ -16,11 +16,11 @@ void MultiChoice::showAnswer(){
     cout << "정답은 " << getAnswer() << " 입니다." << endl;
 }
 
-string MultiChoice::checkAnswer(string choosen_ans){
+bool MultiChoice::checkAnswer(string choosen_ans){
     if (this->answer == stoi(choosen_ans))
-        return "정답입니다.";
+        return true;
     else   
-        return "오답입니다.";
+        return false;
 }
 
 vector<string> MultiChoice::getAnswers()

@@ -10,11 +10,13 @@ protected:
     string question;
     int level;  //난이도
     int score;  //문제 당 배점
+    
 public:
     Quiz(string question, int level, int score);
     string getQuestion();
     string setQuestion();
     void fileRead(ifstream &fin);
-    virtual string checkAnswer(string choice_answer) = 0;
+    virtual bool checkAnswer(string choice_answer) = 0;
     virtual vector<string> getAnswers() = 0;
+    virtual int getQuestionScore(){return score;}
 };
