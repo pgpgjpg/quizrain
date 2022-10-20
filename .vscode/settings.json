@@ -5,6 +5,7 @@
         "string": "cpp",
         "type_traits": "cpp",
         "*.tcc": "cpp",
-        "optional": "cpp"
+        "optional": "cpp",
+        "system_error": "cpp"
     }
 }

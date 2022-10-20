@@ -30,7 +30,7 @@ int main(void)
 
    // cout << (manager.callCheckAnswer(1, "3");
    
-    //////게임 시작////////
+    ////게임 시작////////
     PlayerManager p_manager;
     while(true){
         string name;
@@ -45,19 +45,17 @@ int main(void)
             case 1:                
                 cout << "이름 ->";
                 cin >> name;
-                break;
-            
+                break;            
             case 2:
                 p_manager.showAllPlayer();
                 break;    
             case 3:         
-                p_manager.addPlayer(make_shared<Player>(name,0));
-                
-                break;
-            
+                p_manager.addPlayer(make_shared<Player>(name,0));                
+                break;            
             case 4:
                 return 0;
             default :
+				break;
         }
     }
 
@@ -71,7 +69,5 @@ int main(void)
     cin >> ans;
     q_manager.callCheckAnswer(1,ans);
 
-
-    
 	return 0;
 }
