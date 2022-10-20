@@ -53,24 +53,36 @@ int main(void)
                 cin.ignore();
                 break;            
             case 2:
-                p_manager.showAllPlayer();
+                map.showResultFrame();
+                map.showResultInfo(p_manager);
+                getchar();
                 break;    
             case 3:{
                 system("clear");
                 p_manager.addPlayer(make_shared<Player>(name,0));
             
-                map.showFrame('*');
-                //map.showName(name);
+                map.showFrame('*');                
                 map.showName(name);
                 map.showQuiz(q_manager.getQuiz(1));
                 map.showRain(q_manager.sendGetAnswers(), 1000000);
                 string quizans = map.waitAnswer();
-                map.showAnswer(quizans);
+                map.showAnswer(quizans);               
                 
                 q_manager.callCheckAnswer(1,quizans);
                 p_manager.setScoreByName(name, q_manager.getTotalScore());
                 map.showScore(q_manager.getTotalScore());
                 
+                map.removeRain();
+                
+
+
+
+
+                map.showResultFrame();
+                map.showResultInfo(p_manager);
+
+                sleep(5);
+
                 break;
             }
                 
@@ -80,6 +92,8 @@ int main(void)
             default :
                 break;
         }
+        
+        
     }
 
     

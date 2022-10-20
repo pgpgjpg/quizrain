@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <unistd.h>
+#include "playerManager.h"
 using namespace std;
 
 #define _MACRO_H
@@ -204,10 +205,13 @@ public:
     void showName(string name);        
     void showAnswer(string name);
     void showText(int x, int y, string text);
+    void showResultFrame();
+    void showResultInfo(PlayerManager& pm);    
 
     void removeQuiz();
     void removeRain();
     void removeScore();
+    void removeAnswer();
     void removeName();   
 
     

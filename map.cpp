@@ -23,6 +23,7 @@ void* rain_thread(void *arg);
 
 void Map::showFrame(char ch)
 {
+    clearTerminal();
     int gap = 2;
     Rect rect(origin_x, origin_y, width, height, ch);
     rect.show();
@@ -47,6 +48,27 @@ void Map::showFrame(char ch)
 
     Text tAnswer(origin_x + gap + 1, origin_y + height - 2*gap, "정답 : ");
     tAnswer.show();
+}
+
+void Map::showResultFrame()
+{
+    clearTerminal();
+    char ch = '*';
+    int gap = 2;
+    Rect rect(origin_x, origin_y, width, height, ch);
+    rect.show();
+
+    HorizontalLine hLline1(origin_x, origin_y + gap, width, ch);
+    hLline1.show();
+
+    HorizontalLine hLine2(origin_x, origin_y + height-(gap+1), width, ch);
+    hLine2.show();
+
+    HorizontalLine hLine3(origin_x, origin_y + height-(2*gap+1), width, ch);
+    hLine3.show();
+
+    VerticalLine vLine1(origin_x + width/2, origin_y + height-gap, gap, ch);
+    vLine1.show();   
 }
 
 void Map::showQuiz(string text)
@@ -109,6 +131,14 @@ void Map::showText(int x, int y, string text)
     textScore.show();
 }
 
+void Map::showResultInfo(PlayerManager& pm)
+{
+    int s_x = origin_x + width/2 - 15;
+    int s_y = origin_y + 5;
+    gotoxy(s_x, s_y);
+    pm.showAllPlayer();    
+}
+
 void Map::removeQuiz()
 {
     textQuiz.hide();
@@ -124,9 +154,13 @@ void Map::removeName()
     textName.hide();
 }
 
-void Map::removeRain()
+void Map::removeAnswer()
 {
-    // 미완성
+    textAnswer.hide();
+}
+
+void Map::removeRain()
+{    
     for(int i = 0; i < nThreads; ++i)
         pthread_cancel(vThreads[i]);
 }
@@ -134,11 +168,12 @@ void Map::removeRain()
 void Map::getAnswer()
 {
     string res;
-    char c;
+    char c;    
 
     while(c != '\n'){
-        c = linux_kbhit();      
+        c = linux_kbhit();           
         res += (char)c;
+        showAnswer(res);
     }    
     
     strAnswer = res;     
