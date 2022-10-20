@@ -7,5 +7,6 @@ public:
     char choiceAnswer(char ox);
     char getAnswer();
     void showAnswer();
-    bool checkAnswer(string choosen_ans);
+    string checkAnswer(string choosen_ans);
+    vector<string> getAnswers();
 };

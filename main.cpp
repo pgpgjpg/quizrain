@@ -4,15 +4,7 @@
 using namespace std;
 #include "quiz.h"
 #include "quizmanager.h"
-
-/*
-void fileRead(vector<string> &v, ifstream &fin){
-    string line;
-    while(getline(fin,line)){
-        v.push_back(line);
-    }
-}
-*/
+#include "map.h"
 
 int main(void)
 {
@@ -28,16 +20,27 @@ int main(void)
     }
     manager.fileRead(fin);
     fin.close();
-	cout << "quizlist.txt 파일을 읽었습니다." << endl;
+	//cout << "quizlist.txt 파일을 읽었습니다." << endl;
 
-	manager.showQuizList();
-    cout << manager.getNumQuiz() << endl;
-    cout << manager.getQuiz(1) << endl;
+	//manager.showQuizList();
+    //cout << manager.getNumQuiz() << endl;
+   // cout << manager.getQuiz(1) << endl;
 
-    if (manager.callCheckAnswer(1, "3") == true)
-        cout << "정답입니다." << endl;
-    else cout << "오답입니다." << endl;
+   // cout << (manager.callCheckAnswer(1, "3");
+   
 
-    cout << "git test" << endl;
+
+    Map map;
+    map.showFrame('*');
+    map.showQuiz(manager.getQuiz(1));
+    map.showRain(manager.sendGetAnswers(), 1000000);
+
+    vector<string> tmp = manager.sendGetAnswers();
+    string ans;
+    cin >> ans;
+    manager.callCheckAnswer(1,ans);
+
+
+    
 	return 0;
 }

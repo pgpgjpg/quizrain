@@ -1,11 +1,11 @@
 #include "multichoice.h"
 
-MultiChoice::MultiChoice(string question, int level, int sore, int answer, string s1, string s2, string s3, string s4) : Quiz(question, level, score){
+MultiChoice::MultiChoice(string question, int level, int score, int answer, string s1, string s2, string s3, string s4) : Quiz(question, level, score){
     this->answer = answer;
     this->s1 = s1;
-    this->s1 = s2;
-    this->s1 = s3;
-    this->s1 = s4;
+    this->s2 = s2;
+    this->s3 = s3;
+    this->s4 = s4;
 }
 
 int MultiChoice::choiceAnswer(int n){ return n; }
@@ -16,9 +16,21 @@ void MultiChoice::showAnswer(){
     cout << "정답은 " << getAnswer() << " 입니다." << endl;
 }
 
-bool MultiChoice::checkAnswer(string choosen_ans){
+string MultiChoice::checkAnswer(string choosen_ans){
     if (this->answer == stoi(choosen_ans))
-        return true;
+        return "정답입니다.";
     else   
-        return false;
+        return "오답입니다.";
 }
+
+vector<string> MultiChoice::getAnswers()
+{
+    vector<string> res;
+    res.push_back(this->s1);
+    res.push_back(this->s2);
+    res.push_back(this->s3);
+    res.push_back(this->s4);
+    
+    return res;
+}
+

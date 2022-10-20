@@ -12,9 +12,14 @@ void ShortAnswer::showAnswer(){
     cout << "정답은 " << getAnswer() << " 입니다." << endl;
 }
 
-bool ShortAnswer::checkAnswer(string choosen_ans){
+string ShortAnswer::checkAnswer(string choosen_ans){
     if (this->answer == choosen_ans)
-        return true;
+        return "정답입니다.";
     else   
-        return false;
+        return "오답입니다.";
+}
+
+vector<string> ShortAnswer::getAnswers(){
+    vector<string> tmp;
+    return tmp;
 }
