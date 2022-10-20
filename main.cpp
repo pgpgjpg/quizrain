@@ -51,6 +51,7 @@ int main(void)
                 cout << "이름 ->";
                 cin >> name;
                 cin.ignore();
+                p_manager.addPlayer(make_shared<Player>(name,0));
                 break;            
             case 2:
                 map.showResultFrame();
@@ -58,32 +59,43 @@ int main(void)
                 getchar();
                 break;    
             case 3:{
-                system("clear");
-                p_manager.addPlayer(make_shared<Player>(name,0));
-            
-                map.showFrame('*');                
-                map.showName(name);
-                map.showQuiz(q_manager.getQuiz(1));
-                map.showRain(q_manager.sendGetAnswers(), 1000000);
-                string quizans = map.waitAnswer();
-                map.showAnswer(quizans);               
                 
-                q_manager.callCheckAnswer(1,quizans);
-                p_manager.setScoreByName(name, q_manager.getTotalScore());
-                map.showScore(q_manager.getTotalScore());
+                for (int i = 0; i < q_manager.getNumQuiz(); i++){
+                    system("clear");
+                    
+                    map.showFrame('*');
+                    //map.showName(name);
+                    map.showName(name);
+                    map.showQuiz(q_manager.getQuiz(1));
+                    map.showRain(q_manager.sendGetAnswers(), 1000000);
+                    string quizans = map.waitAnswer();
+                    map.showAnswer(quizans);
+                
+                    if (q_manager.callCheckAnswer(1,quizans) == true){
+                        p_manager.setScoreByName(name, q_manager.getTotalScore());
+                        map.showScore(q_manager.getTotalScore());
+                        map.removeRain();
+                        map.showAnswer("정답입니다.");                      
+                        sleep(2);
+                        continue;
+                    }
+                    else{
+                        map.showAnswer("오답입니다.");
+                        map.removeRain();
+                        sleep(2);                        
+                        break;
+                    }
+                }
                 
                 map.removeRain();
                 
-
-
-
-
                 map.showResultFrame();
                 map.showResultInfo(p_manager);
 
                 sleep(5);
 
                 break;
+                    
             }
                 
             case 4:
