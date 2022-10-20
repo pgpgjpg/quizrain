@@ -23,7 +23,13 @@ int main(void)
     q_manager.fileRead(fin);
     fin.close();
 
-    //////게임 시작////////
+	//manager.showQuizList();
+    //cout << manager.getNumQuiz() << endl;
+   // cout << manager.getQuiz(1) << endl;
+
+   // cout << (manager.callCheckAnswer(1, "3");
+   
+    ////게임 시작////////
     PlayerManager p_manager;
     while(true){
         string name;
@@ -42,13 +48,12 @@ int main(void)
             case 1:                
                 cout << "이름 ->";
                 cin >> name;
-                break;
-            
+                break;            
             case 2:
                 p_manager.showAllPlayer();
                 break;    
             case 3:
-                
+                system("clear");
                 p_manager.addPlayer(make_shared<Player>(name,0));
                                 
                 map.showFrame('*');
@@ -57,6 +62,8 @@ int main(void)
                 
                 cin >> ans;
                 q_manager.callCheckAnswer(1,ans);
+                p_manager.setScoreByName(name, q_manager.getTotalScore());
+                map.showScore(q_manager.getTotalScore());
                 break;
               
                 
@@ -70,7 +77,5 @@ int main(void)
 
     
 
-
-    
 	return 0;
 }

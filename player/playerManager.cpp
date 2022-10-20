@@ -50,4 +50,17 @@ void PlayerManager::updateRank()
     for_each(sortedV.begin(), sortedV.end(), [&cnt](const shared_ptr<Player> i){ i->setRank(++cnt);});
 }
 
+void PlayerManager::setScoreByName(string name, int score)
+{
+	auto it = find_if(playerList.begin(), playerList.end(), [name](shared_ptr<Player> i){return (i->getName() == name);});
+
+	try {
+		if(it != playerList.end()) (*it)->setScore(score);
+		else throw CheckError(("error : " + name + " is not in DB").c_str());
+	}
+	catch(exception &e){
+		const char *c_str = e.what();  		
+	}
+}
+
 PlayerManager::~PlayerManager() {}
