@@ -15,7 +15,14 @@ int main()
     fflush(stdout);
 
     vector<string> as = {"abcd", "dasewqe", "qweqwr", "qwewqe", "qwe12312"};
-    map.showRain(as, 500000);
+    map.showRain(as, 1000000);
+    
+    
+    string tmp = map.waitAnswer();
+    map.showAnswer(tmp);
+    
+    
+    fflush(stdout);
     sleep(10);
     // while(true){
     //     //usleep(10000);

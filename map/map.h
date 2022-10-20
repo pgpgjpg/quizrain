@@ -185,6 +185,7 @@ class Map{
     Text textQuiz;    
     Text textScore;
     Text textName;
+    Text textAnswer;
     
     string strAnswer;
     string strName;
@@ -193,14 +194,15 @@ class Map{
     StringRain *sr;
     
 public:
-    Map() : width(100), height(25), origin_x(0), origin_y(2), maxLenStr(100/2-2) {}
-    Map(int w, int h) : width(w), height(h), origin_x(0), origin_y(2), maxLenStr(w/2-2) {}
-    ~Map() {delete [] vThreads; delete [] sr;}
+    Map() : width(100), height(25), origin_x(0), origin_y(2), maxLenStr(100/2-2) {strAnswer = "NULL";}
+    Map(int w, int h) : width(w), height(h), origin_x(0), origin_y(2), maxLenStr(w/2-2) {strAnswer = "NULL";}
+    ~Map();
     void showFrame(char ch);    
     void showQuiz(string text);        
     void showRain(vector<string> answers, int fallingTime);        
     void showScore(int score);        
     void showName(string name);        
+    void showAnswer(string name);
     void showText(int x, int y, string text);
 
     void removeQuiz();
@@ -208,5 +210,7 @@ public:
     void removeScore();
     void removeName();   
 
-    string getAnswer();
+    
+    string waitAnswer();
+    void getAnswer();
 };
