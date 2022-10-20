@@ -78,25 +78,15 @@ int QuizManager::getNumQuiz(){
 }
 
 string QuizManager::getQuiz(int n){
-	//vector<Quiz*>::const_iterator it;
-	//it = quizList.at(n);
 	return (quizList.at(n))->getQuestion();
 }
 
-bool QuizManager::callCheckAnswer(int n, string choice_answer){
+string QuizManager::callCheckAnswer(int n, string choice_answer){
 	return quizList[n]->checkAnswer(choice_answer);
-	/*
-	vector<Quiz*>::const_iterator it;
-	for(it = quizList.begin(); it != quizList.end(); it++){
-		if(question == (*it)->getQuestion());
-			return (*it)->checkAnswer(choice_answer);
-	}
-	*/
-	//return false;
 }
 
 vector<string> QuizManager::sendGetAnswers(){
 	vector<string> tm =	quizList[1]->getAnswers();
-	cout << tm[0] << tm[1];
 	return tm;
 }
+

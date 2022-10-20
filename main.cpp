@@ -26,9 +26,8 @@ int main(void)
     //cout << manager.getNumQuiz() << endl;
    // cout << manager.getQuiz(1) << endl;
 
-   // if (manager.callCheckAnswer(1, "3") == true)
-   //     cout << "정답입니다." << endl;
-   // else cout << "오답입니다." << endl;
+   // cout << (manager.callCheckAnswer(1, "3");
+   
 
 
     Map map;
@@ -37,7 +36,9 @@ int main(void)
     map.showRain(manager.sendGetAnswers(), 1000000);
 
     vector<string> tmp = manager.sendGetAnswers();
-
+    string ans;
+    cin >> ans;
+    manager.callCheckAnswer(1,ans);
 
 
     

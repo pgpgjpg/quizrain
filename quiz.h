@@ -15,6 +15,6 @@ public:
     string getQuestion();
     string setQuestion();
     void fileRead(ifstream &fin);
-    virtual bool checkAnswer(string choice_answer) = 0;
+    virtual string checkAnswer(string choice_answer) = 0;
     virtual vector<string> getAnswers() = 0;
 };
