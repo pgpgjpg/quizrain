@@ -82,7 +82,12 @@ string QuizManager::getQuiz(int n){
 }
 
 string QuizManager::callCheckAnswer(int n, string choice_answer){
-	return quizList[n]->checkAnswer(choice_answer);
+	if(quizList[n]->checkAnswer(choice_answer) == true){
+		totalScore += quizList[n]->getQuestionScore(); //정답이면 토탈스코어에 배점 추가
+		return "정답입니다.";
+	}
+	else
+		return "오답입니다.";
 }
 
 vector<string> QuizManager::sendGetAnswers(){

@@ -51,7 +51,8 @@ int main(void)
                 p_manager.showAllPlayer();
                 break;    
             case 3:         
-                p_manager.addPlayer(make_shared<Player>(name, q_manager.getScore()));
+                p_manager.addPlayer(make_shared<Player>(name,0));
+                
                 break;
             
             case 4:

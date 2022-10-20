@@ -7,6 +7,7 @@ public:
     string choiceAnswer(string ans);
     string getAnswer();
     void showAnswer();
-    string checkAnswer(string choosen_ans);
+    bool checkAnswer(string choosen_ans);
     vector<string> getAnswers();
+    int getQuestionScore(){return score;}
 };
