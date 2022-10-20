@@ -66,12 +66,13 @@ int main(void)
                     map.showFrame('*');
                     //map.showName(name);
                     map.showName(name);
-                    map.showQuiz(q_manager.getQuiz(1));
-                    map.showRain(q_manager.sendGetAnswers(), 1000000);
+                    map.showQuiz(q_manager.getQuiz(i));
+                    map.showRain(q_manager.sendGetAnswers(i), 1000000);
                     string quizans = map.waitAnswer();
+
                     map.showAnswer(quizans);
-                
-                    if (q_manager.callCheckAnswer(1,quizans) == true){
+
+                    if (q_manager.callCheckAnswer(i,quizans) == true){
                         p_manager.setScoreByName(name, q_manager.getTotalScore());
                         map.showScore(q_manager.getTotalScore());
                         map.removeRain();

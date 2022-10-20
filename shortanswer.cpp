@@ -13,13 +13,15 @@ void ShortAnswer::showAnswer(){
 }
 
 bool ShortAnswer::checkAnswer(string choosen_ans){
-    if (this->answer == choosen_ans)     
+    if (this->answer == choosen_ans)
         return true;
     else   
         return false;
 }
 
 vector<string> ShortAnswer::getAnswers(){
-    vector<string> tmp;
-    return tmp;
+    vector<string> res;
+    res.push_back("정답을 입력하세요(단답형)");
+    
+    return res;
 }

@@ -20,6 +20,8 @@ bool OX::checkAnswer(string choosen_ans){
 }
 
 vector<string> OX::getAnswers(){
-    vector<string> tmp;
-    return tmp;
+    vector<string> res;
+    res.push_back("O(대문자)");
+    res.push_back("X(대문자)");
+    return res;
 }

@@ -170,12 +170,13 @@ void Map::getAnswer()
     string res;
     char c;    
 
-    while(c != '\n'){
+    while(c != '\n'){        
         c = linux_kbhit();           
+        if(c == '\n') break;
         res += (char)c;
         showAnswer(res);
     }    
-    
+    //res[res.length() - 1] = '\0';
     strAnswer = res;     
 }
 
