@@ -1,5 +1,24 @@
 #include "map.h"
 
+#ifndef LINUX_KBHIT_H_
+#define LINUX_KBHIT_H_
+#include <stdio.h>
+#include <termios.h>
+//#include <unistd.h>
+int linux_kbhit(void)
+{
+    struct termios oldt, newt; int ch;
+    tcgetattr( STDIN_FILENO, &oldt ); 
+    newt = oldt;
+    newt.c_lflag &= ~( ICANON | ECHO ); 
+    tcsetattr( STDIN_FILENO, TCSANOW, &newt );
+    ch = getchar();
+    tcsetattr( STDIN_FILENO, TCSANOW, &oldt );
+     return ch;
+}
+#endif
+
+
 void* rain_thread(void *arg);
 
 void Map::showFrame(char ch)
@@ -54,6 +73,15 @@ void Map::showName(string name)
     textName.show();
 }
 
+void Map::showAnswer(string ans)
+{
+    //.origin_x + gap + 1, origin_y + height - 2*gap
+    int x = origin_x + 10;
+    int y = origin_y + height - 4;
+    textAnswer.set(x, y, ans);
+    textAnswer.show();
+}
+
 void Map::showRain(vector<string> answers, int fallingTime)
 {
     int n = answers.size();    
@@ -70,8 +98,7 @@ void Map::showRain(vector<string> answers, int fallingTime)
         sr[i].set(s_x, s_y, height-4, answers[i], fallingTime);    
         pthread_create(&vThreads[i], NULL, rain_thread, &sr[i]);            
     }       
-    for(int i = 0; i < n; ++i)
-        pthread_join(vThreads[i], (void **)NULL);
+    getAnswer();    
 }   
 
 void Map::showText(int x, int y, string text)
@@ -104,19 +131,26 @@ void Map::removeRain()
         pthread_cancel(vThreads[i]);
 }
 
-string Map::getAnswer()
+void Map::getAnswer()
 {
     string res;
-    // char c;
-    // int cnt = 0;
-    // while(c != '\n'){
-    //     c = getchar();
-    //     gotoxy(origin_x + 6 + cnt, origin_y + height - 4);
-    //     putchar(c);
-    //     ++cnt;
-    //     res += c;        
-    // }
-    return res;
+    char c;
+
+    while(c != '\n'){
+        c = linux_kbhit();      
+        res += (char)c;
+    }    
+    
+    strAnswer = res;     
+}
+
+string Map::waitAnswer()
+{
+    while(strAnswer == "NULL"){
+        usleep(5000);       
+    }    
+    
+    return strAnswer;
 }
 
 void* rain_thread(void *arg)
@@ -126,4 +160,12 @@ void* rain_thread(void *arg)
     tmp->show();
 
     return NULL;
+}
+
+Map::~Map()
+{    
+    for(int i = 0; i < nThreads; ++i)
+        pthread_join(vThreads[i], (void **)NULL);
+
+    delete [] vThreads; delete [] sr;
 }
