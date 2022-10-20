@@ -22,7 +22,6 @@ int main(void)
     }
     q_manager.fileRead(fin);
     fin.close();
-	//cout << "quizlist.txt 파일을 읽었습니다." << endl;
 
 	//manager.showQuizList();
     //cout << manager.getNumQuiz() << endl;
@@ -34,12 +33,16 @@ int main(void)
     PlayerManager p_manager;
     while(true){
         string name;
+        string ans;
         int choice;
+        Map map;
         cout << "게임" << endl;
         cout << "1. 사용자 정보 입력" << endl;
         cout << "2. 랭크 확인" << endl;        
         cout << "3. 게임 시작" << endl;
         cout << "4. 종료" << endl;
+
+        cin >> choice;
 
         switch(choice){
             case 1:                
@@ -49,25 +52,30 @@ int main(void)
             case 2:
                 p_manager.showAllPlayer();
                 break;    
-            case 3:         
-                p_manager.addPlayer(make_shared<Player>(name,0));                
-                break;            
+            case 3:
+                system("clear");
+                p_manager.addPlayer(make_shared<Player>(name,0));
+                                
+                map.showFrame('*');
+                map.showQuiz(q_manager.getQuiz(1));
+                map.showRain(q_manager.sendGetAnswers(), 1000000);
+                
+                cin >> ans;
+                q_manager.callCheckAnswer(1,ans);
+                p_manager.setScoreByName(name, q_manager.getTotalScore());
+                map.showScore(q_manager.getTotalScore());
+                break;
+              
+                
             case 4:
                 return 0;
+                
             default :
-				break;
+                break;
         }
     }
 
-    Map map;
-    map.showFrame('*');
-    map.showQuiz(q_manager.getQuiz(1));
-    map.showRain(q_manager.sendGetAnswers(), 1000000);
-
-    vector<string> tmp = q_manager.sendGetAnswers();
-    string ans;
-    cin >> ans;
-    q_manager.callCheckAnswer(1,ans);
+    
 
 	return 0;
 }
