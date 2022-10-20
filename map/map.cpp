@@ -74,11 +74,18 @@ void Map::showRain(vector<string> answers, int fallingTime)
         pthread_join(vThreads[i], (void **)NULL);
 }   
 
+void Map::showText(int x, int y, string text)
+{
+    int s_x = origin_x + x;
+    int s_y = origin_y + y;
+    textScore.set(s_x, s_y, text);
+    textScore.show();
+}
+
 void Map::removeQuiz()
 {
     textQuiz.hide();
 }
-
 
 void Map::removeScore()
 {

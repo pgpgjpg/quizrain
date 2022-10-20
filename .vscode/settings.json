@@ -1,6 +1,10 @@
 {
     "files.associations": {
         "vector": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "string": "cpp",
+        "type_traits": "cpp",
+        "*.tcc": "cpp",
+        "optional": "cpp"
     }
 }

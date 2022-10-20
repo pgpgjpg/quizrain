@@ -201,6 +201,7 @@ public:
     void showRain(vector<string> answers, int fallingTime);        
     void showScore(int score);        
     void showName(string name);        
+    void showText(int x, int y, string text);
 
     void removeQuiz();
     void removeRain();
