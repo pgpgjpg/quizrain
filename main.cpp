@@ -30,17 +30,14 @@ int main(void)
    //     cout << "정답입니다." << endl;
    // else cout << "오답입니다." << endl;
 
-/*
+
     Map map;
     map.showFrame('*');
     map.showQuiz(manager.getQuiz(1));
-    //map.showRain(manager.sendGetAnswers(), 1000000);
-*/
+    map.showRain(manager.sendGetAnswers(), 1000000);
+
     vector<string> tmp = manager.sendGetAnswers();
 
-
- //   for(int i = 0; i < tmp.size(); ++i)
-       // cout << tmp[i] << endl;
 
 
     
