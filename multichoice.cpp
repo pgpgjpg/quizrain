@@ -1,11 +1,11 @@
 #include "multichoice.h"
 
-MultiChoice::MultiChoice(string question, int level, int sore, int answer, string s1, string s2, string s3, string s4) : Quiz(question, level, score){
+MultiChoice::MultiChoice(string question, int level, int score, int answer, string s1, string s2, string s3, string s4) : Quiz(question, level, score){
     this->answer = answer;
     this->s1 = s1;
-    this->s1 = s2;
-    this->s1 = s3;
-    this->s1 = s4;
+    this->s2 = s2;
+    this->s3 = s3;
+    this->s4 = s4;
 }
 
 int MultiChoice::choiceAnswer(int n){ return n; }
@@ -30,7 +30,7 @@ vector<string> MultiChoice::getAnswers()
     res.push_back(this->s2);
     res.push_back(this->s3);
     res.push_back(this->s4);
-
+    
     return res;
 }
 

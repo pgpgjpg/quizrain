@@ -18,3 +18,8 @@ bool OX::checkAnswer(string choosen_ans){
     else   
         return false;
 }
+
+vector<string> OX::getAnswers(){
+    vector<string> tmp;
+    return tmp;
+}

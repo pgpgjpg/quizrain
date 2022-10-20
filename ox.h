@@ -8,5 +8,5 @@ public:
     char getAnswer();
     void showAnswer();
     bool checkAnswer(string choosen_ans);
-    vector<string> getAnswers(){};
+    vector<string> getAnswers();
 };

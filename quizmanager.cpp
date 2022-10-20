@@ -96,5 +96,7 @@ bool QuizManager::callCheckAnswer(int n, string choice_answer){
 }
 
 vector<string> QuizManager::sendGetAnswers(){
-	return quizList[1]->getAnswers();
+	vector<string> tm =	quizList[1]->getAnswers();
+	cout << tm[0] << tm[1];
+	return tm;
 }

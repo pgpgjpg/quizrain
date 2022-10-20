@@ -5,14 +5,6 @@ using namespace std;
 #include "quiz.h"
 #include "quizmanager.h"
 #include "map.h"
-/*
-void fileRead(vector<string> &v, ifstream &fin){
-    string line;
-    while(getline(fin,line)){
-        v.push_back(line);
-    }
-}
-*/
 
 int main(void)
 {
@@ -38,15 +30,19 @@ int main(void)
    //     cout << "정답입니다." << endl;
    // else cout << "오답입니다." << endl;
 
-
+/*
     Map map;
     map.showFrame('*');
     map.showQuiz(manager.getQuiz(1));
     //map.showRain(manager.sendGetAnswers(), 1000000);
+*/
     vector<string> tmp = manager.sendGetAnswers();
-    for(int i = 0; i < tmp.size(); ++i)
-        cout << tmp[i] << endl;
 
 
+ //   for(int i = 0; i < tmp.size(); ++i)
+       // cout << tmp[i] << endl;
+
+
+    
 	return 0;
 }
