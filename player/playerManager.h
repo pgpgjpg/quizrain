@@ -13,6 +13,7 @@ public:
 	PlayerManager();
     ~PlayerManager();
 	void addPlayer(shared_ptr<Player> player);
+	void setScoreByName(string name, int score);
 	void showAllPlayer() const;	
 	void searchByName(string name);	
     void updateRank();

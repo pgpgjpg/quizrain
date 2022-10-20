@@ -10,6 +10,8 @@ int main(void)
     manager.addPlayer(make_shared<Player>("c", 99));
     manager.addPlayer(make_shared<Player>("d", 97));
  
+	manager.setScoreByName("b", 1000);
+
 	manager.showAllPlayer();	
 	
 	manager.searchByName("d");
