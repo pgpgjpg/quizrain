@@ -45,7 +45,7 @@ void Map::showFrame(char ch)
     Text tScore(origin_x + width/2 + gap, origin_y + height-gap, "점수 : ");
     tScore.show();
 
-    Text tAnswer(origin_x + gap + 1, origin_y + height - 2*gap, "정답 : ");
+    Text tAnswer(origin_x + gap + 1, origin_y + height - 2*gap, "입력값 : ");
     tAnswer.show();
 }
 
