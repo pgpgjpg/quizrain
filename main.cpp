@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <ctime>
 using namespace std;
 #include "quiz.h"
 #include "quizmanager.h"
@@ -13,6 +14,7 @@ int main(void)
     string name;
 	// 퀴즈관리를 목적으로 설계된 컨트롤 클래스의 객체생성
 	QuizManager q_manager;
+    time_t new_time, old_time;
 
 	// 퀴즈 등록
 	vector<string> wordVector;
@@ -48,7 +50,11 @@ int main(void)
                 q_manager.setTotalSocre();
                 for (int i = 0; i < q_manager.getNumQuiz(); i++){
                     system("clear");
+
+                    old_time = clock();
                     
+                    
+
                     map.showFrame('*');
                     map.showName(name);
                     map.showQuiz(q_manager.getQuiz(i));
@@ -57,6 +63,16 @@ int main(void)
                     map.showScore(q_manager.getTotalScore());
                     map.showRain(q_manager.sendGetAnswers(i), 1000000);
                     string quizans = map.waitAnswer();
+/*
+                    do{
+                        quizans=map.waitAnswer();
+                        new_time = clock();
+                        if(difftime(new_time, old_time) > 15000){
+                            quizans = "";
+                            break;
+                        }
+                    }while (quizans == "");
+*/
 
                     if (q_manager.callCheckAnswer(i,quizans) == true){
                         p_manager.setScoreByName(name, q_manager.getTotalScore());
@@ -78,6 +94,7 @@ int main(void)
                         
                         break;
                     }
+                    
                 }
                 
                 map.removeRain();

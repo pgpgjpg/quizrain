@@ -14,7 +14,7 @@ int linux_kbhit(void)
     tcsetattr( STDIN_FILENO, TCSANOW, &newt );
     ch = getchar();
     tcsetattr( STDIN_FILENO, TCSANOW, &oldt );
-     return ch;
+    return ch;
 }
 #endif
 
@@ -202,11 +202,13 @@ void Map::getAnswer()
 
     while(c != '\n'){        
         c = linux_kbhit();           
-        if(c == '\n') break;
-        res += (char)c;
+        if(c== '\n') break;
+        if(c == '\b')
+            res.pop_back();
+        else
+            res += (char)c;
         showAnswer(res);
     }    
-    //res[res.length() - 1] = '\0';
     strAnswer = res;     
 }
 

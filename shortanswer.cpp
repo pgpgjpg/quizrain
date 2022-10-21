@@ -14,7 +14,8 @@ void ShortAnswer::showAnswer(){
 }
 
 bool ShortAnswer::checkAnswer(string choosen_ans){
-    if (strcasecmp(this->answer.c_str(),choosen_ans.c_str())==0)
+    if (strcasecmp((this->answer.c_str()),(choosen_ans.c_str())) == 0)
+    //if (this->answer == choosen_ans)
         return true;
     else   
         return false;
