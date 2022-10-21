@@ -95,3 +95,10 @@ vector<string> QuizManager::sendGetAnswers(int n){
 	return tm;
 }
 
+int QuizManager::getQuizLevel(int n){
+	return quizList[n]->getLevel();
+}
+
+void QuizManager::setTotalSocre(){
+	totalScore = 0;
+}

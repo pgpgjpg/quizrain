@@ -19,4 +19,5 @@ public:
     virtual bool checkAnswer(string choice_answer) = 0;
     virtual vector<string> getAnswers() = 0;
     virtual int getQuestionScore(){return score;}
+    virtual int getLevel(){return level;}
 };

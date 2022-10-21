@@ -104,6 +104,15 @@ void Map::showAnswer(string ans)
     textAnswer.show();
 }
 
+void Map::showAnswerResult(string ans)
+{
+    //.origin_x + gap + 1, origin_y + height - 2*gap
+    int x = origin_x + 25;
+    int y = origin_y + height - 4;
+    textAnswerResult.set(x, y, ans);
+    textAnswerResult.show();
+}
+
 void Map::showRain(vector<string> answers, int fallingTime)
 {
     int n = answers.size();    
@@ -157,6 +166,11 @@ void Map::removeName()
 void Map::removeAnswer()
 {
     textAnswer.hide();
+}
+
+void Map::removeAnswerResult()
+{
+    textAnswerResult.hide();
 }
 
 void Map::removeRain()
