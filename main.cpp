@@ -50,10 +50,17 @@ void getAnswer(Map* map)
     while(c != '\n'){        
         c = linux_kbhit();           
         if(c == '\n') break;
-        res += (char)c;
+        
+        if(c == 127 && res.size() > 0){
+            res.pop_back(); 
+            map->removeAnswer(); 
+        }                  
+        else
+            res += (char)c;
+        
+        
         map->showAnswer(res);
     }    
-    
     map->strAnswer = res;     
     pthread_cleanup_pop(0);
 }
@@ -87,6 +94,10 @@ int main(void)
         string ans;
         int choice;
         
+        map.showResultFrame();
+        map.showWarning();
+        getchar();
+        system("clear");
         cout << "게임" << endl;
         cout << "1. 게임 시작" << endl;
         cout << "2. 랭크 확인" << endl;                
