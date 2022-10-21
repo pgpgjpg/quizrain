@@ -65,6 +65,7 @@ int main(void)
     string name;
 	// 퀴즈관리를 목적으로 설계된 컨트롤 클래스의 객체생성
 	QuizManager q_manager;
+    time_t new_time, old_time;
 
 	// 퀴즈 등록
 	vector<string> wordVector;
@@ -95,6 +96,8 @@ int main(void)
         cin.ignore();
         switch(choice){
             case 1:{
+                q_manager.randomQuiz(); // 퀴즈 셔플
+
                 cout << "이름을 입력해주세요 :";
                 getline(cin, name);
                 q_manager.setTotalSocre();
@@ -106,9 +109,10 @@ int main(void)
                     map.showFrame('*');
                     map.showName(name);
                     map.showQuiz(q_manager.getQuiz(i));
+                    map.showLevel(q_manager.getQuizLevel(i));
                     p_manager.setScoreByName(name, q_manager.getTotalScore());
                     map.showScore(q_manager.getTotalScore());
-                    map.showRain(q_manager.sendGetAnswers(i), 3000000);                                        
+                    map.showRain(q_manager.sendGetAnswers(i), 1000000);                                        
                     thread_answer = thread(getAnswer, &map);                    
                     string quizans = map.waitAnswer();                            
                     pthread_cancel(thread_answer.native_handle());                    
@@ -140,7 +144,7 @@ int main(void)
                 map.removeRain();
                 map.showResultFrame();
                 map.showResultInfo(p_manager);
-                //getchar();     
+                getchar();     
                          
                 break;
             }        

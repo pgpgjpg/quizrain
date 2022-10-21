@@ -2,6 +2,7 @@
 #include <exception>
 #include <memory>
 #include <iomanip>
+#include <random>
 
 struct NotOX : exception {
   const char* what() const noexcept {return "O나 X를 입력하세요.\n";}
@@ -101,4 +102,22 @@ int QuizManager::getQuizLevel(int n){
 
 void QuizManager::setTotalSocre(){
 	totalScore = 0;
+}
+
+void QuizManager::randomQuiz(){
+	Quiz* temp;
+    random_device rd;
+    mt19937 gen(rd());
+	int num = getNumQuiz();
+    uniform_int_distribution<int> dis(0,99);
+	int idx1, idx2;
+    for (int i = 0; i < 50; i++){
+		idx1 = dis(gen)%num;
+		idx2 = dis(gen)%num;
+
+    	temp = quizList[idx1];
+		quizList[idx1] = quizList[idx2];
+		quizList[idx2] = temp;
+
+    }
 }

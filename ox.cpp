@@ -13,6 +13,10 @@ void OX::showAnswer(){
 }
 
 bool OX::checkAnswer(string choosen_ans){
+    if (choosen_ans[0] == 'o')
+        choosen_ans[0] = 'O'; 
+    if (choosen_ans[0] == 'x')
+        choosen_ans[0] = 'X';
     if (this->answer == choosen_ans[0])
         return true;
     else   
@@ -21,7 +25,7 @@ bool OX::checkAnswer(string choosen_ans){
 
 vector<string> OX::getAnswers(){
     vector<string> res;
-    res.push_back("O(대문자)");
-    res.push_back("X(대문자)");
+    res.push_back("O");
+    res.push_back("X");
     return res;
 }

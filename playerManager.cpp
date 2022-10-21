@@ -60,7 +60,7 @@ void PlayerManager::updateRank()
 {
     int cnt = 0;
     vector<shared_ptr<Player>> sortedV = playerList;
-	sort(sortedV.begin(), sortedV.end(), [](const shared_ptr<Player> i, const shared_ptr<Player> j){return (i->getRank() < j->getRank());});
+	sort(sortedV.begin(), sortedV.end(), [](const shared_ptr<Player> i, const shared_ptr<Player> j){return (i->getScore() > j->getScore());});
     for_each(sortedV.begin(), sortedV.end(), [&cnt](const shared_ptr<Player> i){ i->setRank(++cnt);});
 }
 
@@ -75,6 +75,7 @@ void PlayerManager::setScoreByName(string name, int score)
 	catch(exception &e){
 		const char *c_str = e.what();  		
 	}
+	updateRank();
 }
 
 PlayerManager::~PlayerManager() {}

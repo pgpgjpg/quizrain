@@ -17,10 +17,18 @@ void MultiChoice::showAnswer(){
 }
 
 bool MultiChoice::checkAnswer(string choosen_ans){
+    try{
     if (this->answer == stoi(choosen_ans))
         return true;
     else   
         return false;
+    }
+    catch(invalid_argument){
+        return false;
+    }
+    catch(out_of_range){
+        return false;
+    }
 }
 
 vector<string> MultiChoice::getAnswers()

@@ -27,4 +27,5 @@ public:
     int getTotalScore(){return totalScore;};
     void setTotalSocre();
     int getQuizLevel(int n); //n번 문제의 난이도 int로 리턴
+    void randomQuiz(); //퀴즈리스트 랜덤 정렬
 };
