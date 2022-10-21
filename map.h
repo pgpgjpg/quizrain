@@ -190,13 +190,14 @@ class Map{
     Text textLevel;
     Text textAnswerResult;
     
-    string strAnswer;
+    
     string strName;
 
     pthread_t *vThreads;    
     StringRain *sr;
     
 public:
+    string strAnswer;
     Map() : width(100), height(25), origin_x(0), origin_y(2), maxLenStr(100/2-2) {strAnswer = "NULL";}
     Map(int w, int h) : width(w), height(h), origin_x(0), origin_y(2), maxLenStr(w/2-2) {strAnswer = "NULL";}
     ~Map();
@@ -219,7 +220,7 @@ public:
     void removeAnswerResult();
     void removeName();   
 
-    
+    void resetForWriteAnswer();
     string waitAnswer();
-    void getAnswer();
+    //void getAnswer();
 };

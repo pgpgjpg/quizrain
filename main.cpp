@@ -1,12 +1,64 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <thread>
+#include <pthread.h>
 using namespace std;
 #include "quiz.h"
 #include "quizmanager.h"
 #include "map.h"
 #include "playerManager.h"
 
+#ifndef LINUX_KBHIT_H_
+#define LINUX_KBHIT_H_
+#include <stdio.h>
+#include <termios.h>
+//#include <unistd.h>
+
+void cleanup(void *arg)
+{
+    struct termios oldt, newt;     
+    tcgetattr( STDIN_FILENO, &oldt ); 
+    newt = oldt;
+    newt.c_lflag |= ( ICANON | ECHO ); 
+    tcsetattr( STDIN_FILENO, TCSANOW, &newt );            
+}
+
+
+int linux_kbhit(void)
+{
+    struct termios oldt, newt; 
+    int ch;
+    tcgetattr( STDIN_FILENO, &oldt ); 
+    newt = oldt;
+    newt.c_lflag &= ~( ICANON | ECHO ); 
+    tcsetattr( STDIN_FILENO, TCSANOW, &newt );    
+    ch = getchar();
+    tcsetattr( STDIN_FILENO, TCSANOW, &oldt );
+    return ch;
+}
+#endif
+
+
+
+void getAnswer(Map* map)
+{
+    pthread_cleanup_push(cleanup, 0);
+    string res;
+    char c;    
+
+    while(c != '\n'){        
+        c = linux_kbhit();           
+        if(c == '\n') break;
+        res += (char)c;
+        map->showAnswer(res);
+    }    
+    
+    map->strAnswer = res;     
+    pthread_cleanup_pop(0);
+}
+
+thread thread_answer;
 
 int main(void)
 {
@@ -27,6 +79,8 @@ int main(void)
     ////게임 시작////////
     PlayerManager p_manager;
     Map map;
+    
+
     while(true){
         system("clear");
         string ans;
@@ -44,17 +98,22 @@ int main(void)
                 cout << "이름을 입력해주세요 :";
                 getline(cin, name);
                 q_manager.setTotalSocre();
-                for (int i = 0; i < q_manager.getNumQuiz(); i++){
+                p_manager.addPlayer(make_shared<Player>(name, 0));
+
+                for (int i = 0; i < q_manager.getNumQuiz(); i++){                    
                     system("clear");
-                    
+                    map.resetForWriteAnswer();                    
                     map.showFrame('*');
                     map.showName(name);
                     map.showQuiz(q_manager.getQuiz(i));
                     p_manager.setScoreByName(name, q_manager.getTotalScore());
                     map.showScore(q_manager.getTotalScore());
-                    map.showRain(q_manager.sendGetAnswers(i), 1000000);
-                    string quizans = map.waitAnswer();
-                    //map.showAnswer(quizans);
+                    map.showRain(q_manager.sendGetAnswers(i), 3000000);                                        
+                    thread_answer = thread(getAnswer, &map);                    
+                    string quizans = map.waitAnswer();                            
+                    pthread_cancel(thread_answer.native_handle());                    
+                    thread_answer.join();
+                                        
 
                     if (q_manager.callCheckAnswer(i,quizans) == true){
                         p_manager.setScoreByName(name, q_manager.getTotalScore());
@@ -62,9 +121,7 @@ int main(void)
                         map.removeRain();
                         map.removeAnswer();
                         map.showAnswerResult("정답입니다.\n");                 
-                        sleep(2);
-                        //map.removeAnswerResult();
-                        
+                        sleep(2);                  
                         continue;
                     }
                     else{
@@ -73,21 +130,18 @@ int main(void)
                         map.removeAnswer();
                         map.showAnswerResult("오답입니다.\n");
                         map.removeRain();
-                        sleep(2);
-                        
+                        sleep(2);                        
                         break;
                     }
+                    
+                     
                 }
                 
                 map.removeRain();
-
-                p_manager.addPlayer(make_shared<Player>(name,q_manager.getTotalScore()));
-
                 map.showResultFrame();
                 map.showResultInfo(p_manager);
-
-                getchar();
-                //map.showAnswerResult("                    ");
+                //getchar();     
+                         
                 break;
             }        
             case 2:
@@ -105,6 +159,7 @@ int main(void)
                 sleep(3);
                 break;
         }
+        
     }
 	return 0;
 }

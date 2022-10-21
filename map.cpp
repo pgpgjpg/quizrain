@@ -1,24 +1,33 @@
 #include "map.h"
-
-#ifndef LINUX_KBHIT_H_
-#define LINUX_KBHIT_H_
-#include <stdio.h>
-#include <termios.h>
-//#include <unistd.h>
-int linux_kbhit(void)
-{
-    struct termios oldt, newt; int ch;
-    tcgetattr( STDIN_FILENO, &oldt ); 
-    newt = oldt;
-    newt.c_lflag &= ~( ICANON | ECHO ); 
-    tcsetattr( STDIN_FILENO, TCSANOW, &newt );
-    ch = getchar();
-    tcsetattr( STDIN_FILENO, TCSANOW, &oldt );
-     return ch;
-}
-#endif
+#include <ctime>
+#include <cstdlib>
+#include <atomic>
+// #ifndef LINUX_KBHIT_H_
+// #define LINUX_KBHIT_H_
+// #include <stdio.h>
+// #include <termios.h>
+// #include <atomic>
+// //#include <unistd.h>
 
 
+
+// int linux_kbhit(void)
+// {
+//     struct termios oldt, newt; 
+//     int ch;
+//     tcgetattr( STDIN_FILENO, &oldt ); 
+//     newt = oldt;
+//     newt.c_lflag &= ~( ICANON | ECHO ); 
+//     tcsetattr( STDIN_FILENO, TCSANOW, &newt );    
+//     ch = getchar();
+//     tcsetattr( STDIN_FILENO, TCSANOW, &oldt );
+//     return ch;
+// }
+// #endif
+
+//atomic<int> rainCnt(0);
+int rainCnt;
+pthread_mutex_t mutexid;
 void* rain_thread(void *arg);
 
 void Map::showFrame(char ch)
@@ -138,14 +147,22 @@ void Map::showRain(vector<string> answers, int fallingTime)
     sr = new StringRain[n];
 
     for(int i = 0; i < n; ++i){
+        double ratio = 1 + (rand()%201 - 100)*0.001;
         int s_x = rainX*i + 3;
         int s_y = origin_y + 3;
 
-        sr[i].set(s_x, s_y, height-4, answers[i], fallingTime);    
+        sr[i].set(s_x, s_y, height-4, answers[i], fallingTime*ratio);    
         pthread_create(&vThreads[i], NULL, rain_thread, &sr[i]);            
     }       
-    getAnswer();    
-}   
+    //getAnswer();    
+}    
+
+void Map::resetForWriteAnswer()
+{
+    strAnswer = "NULL";
+    rainCnt = 0;
+    pthread_mutex_init(&mutexid, NULL);
+}
 
 void Map::showText(int x, int y, string text)
 {
@@ -195,25 +212,27 @@ void Map::removeRain()
         pthread_cancel(vThreads[i]);
 }
 
-void Map::getAnswer()
-{
-    string res;
-    char c;    
+// void Map::getAnswer()
+// {
+//     string res;
+//     char c;    
 
-    while(c != '\n'){        
-        c = linux_kbhit();           
-        if(c == '\n') break;
-        res += (char)c;
-        showAnswer(res);
-    }    
-    //res[res.length() - 1] = '\0';
-    strAnswer = res;     
-}
+//     while(c != '\n'){        
+//         c = linux_kbhit();           
+//         if(c == '\n') break;
+//         res += (char)c;
+//         showAnswer(res);
+//     }    
+//     //res[res.length() - 1] = '\0';
+//     strAnswer = res;     
+// }
 
 string Map::waitAnswer()
 {
-    while(strAnswer == "NULL"){
-        usleep(5000);       
+    usleep(500000);    
+    
+    while(strAnswer == "NULL" && rainCnt != 0){        
+        usleep(500000);       
     }    
     
     return strAnswer;
@@ -222,9 +241,16 @@ string Map::waitAnswer()
 void* rain_thread(void *arg)
 {
     StringRain* tmp = (StringRain*)arg; 
-    
+    pthread_mutex_lock(&mutexid);
+    ++rainCnt;
+    pthread_mutex_unlock(&mutexid);
+
     tmp->show();
 
+    pthread_mutex_lock(&mutexid);
+    --rainCnt;;
+    pthread_mutex_unlock(&mutexid);
+    
     return NULL;
 }
 
