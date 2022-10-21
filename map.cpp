@@ -37,11 +37,17 @@ void Map::showFrame(char ch)
     HorizontalLine hLine3(origin_x, origin_y + height-(2*gap+1), width, ch);
     hLine3.show();
 
-    VerticalLine vLine1(origin_x + width/2, origin_y + height-gap, gap, ch);
+    VerticalLine vLine1(origin_x + width/2, origin_y + height-2*gap, gap*2, ch);
     vLine1.show();
+
+    // VerticalLine vLine1(origin_x + width/2, origin_y + height-gap, gap, ch);
+    // vLine1.show();
 
     Text tName(origin_x + gap + 1, origin_y + height-gap, "이름 : ");
     tName.show();
+    
+    Text tLevel(origin_x + width/2 + gap, origin_y + height-2*gap, "난이도 : ");
+    tLevel.show();   
 
     Text tScore(origin_x + width/2 + gap, origin_y + height-gap, "점수 : ");
     tScore.show();
@@ -67,8 +73,8 @@ void Map::showResultFrame()
     HorizontalLine hLine3(origin_x, origin_y + height-(2*gap+1), width, ch);
     hLine3.show();
 
-    VerticalLine vLine1(origin_x + width/2, origin_y + height-gap, gap, ch);
-    vLine1.show();   
+    VerticalLine vLine1(origin_x + width/2, origin_y + height-2*gap, gap*2, ch);
+    vLine1.show();  
 }
 
 void Map::showQuiz(string text)
@@ -86,6 +92,15 @@ void Map::showScore(int score)
     textScore.set(x, y, to_string(score));
     textScore.show();
 }  
+
+void Map::showLevel(int level)
+{    
+    int x = origin_x + width/2 + 11;
+    int y = origin_y + height - 4;
+    textLevel.set(x, y, to_string(level));
+    textLevel.show();
+}  
+
 
 void Map::showName(string name)
 {
@@ -135,8 +150,9 @@ void Map::showResultInfo(PlayerManager& pm)
 {
     int s_x = origin_x + width/2 - 15;
     int s_y = origin_y + 5;
+    int rank = 1;
     gotoxy(s_x, s_y);
-    pm.showAllPlayer();    
+    while(pm.showInfoByRank(rank++)) {gotoxy(s_x, ++s_y);}    
 }
 
 void Map::removeQuiz()
@@ -202,5 +218,6 @@ Map::~Map()
     for(int i = 0; i < nThreads; ++i)
         pthread_join(vThreads[i], (void **)NULL);
 
-    delete [] vThreads; delete [] sr;
+    delete [] vThreads; 
+    delete [] sr;
 }

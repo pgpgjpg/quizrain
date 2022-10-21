@@ -187,6 +187,7 @@ class Map{
     Text textScore;
     Text textName;
     Text textAnswer;
+    Text textLevel;
     
     string strAnswer;
     string strName;
@@ -201,7 +202,8 @@ public:
     void showFrame(char ch);    
     void showQuiz(string text);        
     void showRain(vector<string> answers, int fallingTime);        
-    void showScore(int score);        
+    void showScore(int score);   
+    void showLevel(int level);        
     void showName(string name);        
     void showAnswer(string name);
     void showText(int x, int y, string text);

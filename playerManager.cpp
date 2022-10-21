@@ -42,6 +42,20 @@ void PlayerManager::searchByName(string name)
 	}
 }
 
+bool PlayerManager::showInfoByRank(int rank)
+{	    
+	auto it = find_if(playerList.begin(), playerList.end(), [rank](shared_ptr<Player> i){return (i->getRank() == rank);});
+
+	
+	if(it != playerList.end()){
+		(*it)->showInfo();
+		return true;
+	}else
+		return false;
+	
+	
+}
+
 void PlayerManager::updateRank()
 {
     int cnt = 0;

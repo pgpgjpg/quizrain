@@ -16,5 +16,6 @@ public:
 	void setScoreByName(string name, int score);
 	void showAllPlayer() const;	
 	void searchByName(string name);	
+	bool showInfoByRank(int rank);
     void updateRank();
 };
