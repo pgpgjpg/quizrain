@@ -122,7 +122,7 @@ void Map::showName(string name)
 void Map::showAnswer(string ans)
 {
     //.origin_x + gap + 1, origin_y + height - 2*gap
-    int x = origin_x + 10;
+    int x = origin_x + 12;
     int y = origin_y + height - 4;
     textAnswer.set(x, y, ans);
     textAnswer.show();
@@ -168,8 +168,8 @@ void Map::showText(int x, int y, string text)
 {
     int s_x = origin_x + x;
     int s_y = origin_y + y;
-    textScore.set(s_x, s_y, text);
-    textScore.show();
+    textShow.set(s_x, s_y, text);
+    textShow.show();
 }
 
 void Map::showResultInfo(PlayerManager& pm)
@@ -178,8 +178,54 @@ void Map::showResultInfo(PlayerManager& pm)
     int s_y = origin_y + 5;
     int rank = 1;
     gotoxy(s_x, s_y);
-    while(pm.showInfoByRank(rank++)) {gotoxy(s_x, ++s_y);}    
+    while(pm.showInfoByRank(rank++)) {gotoxy(s_x, ++s_y);}  
+
+    s_x = origin_x + width/2 - 7;
+    s_y = origin_y -1; 
+    gotoxy(s_x, s_y);
+    showText(s_x, s_y, "R  A  N  K");
 }
+
+void Map::showWarning(){
+    int s_x = origin_x + width/2 - 7;
+    int s_y = origin_y -1; 
+    gotoxy(s_x, s_y);
+    showText(s_x, s_y, "I  N  F  O");
+
+    s_x = origin_x + width/2 - 17;
+    s_y = origin_y +5; 
+    gotoxy(s_x, s_y);
+    showText(s_x, s_y, "This game is Quiz Rain");
+
+    s_x = origin_x + width/2 - 17;
+    s_y = origin_y +6; 
+    gotoxy(s_x, s_y);
+    showText(s_x, s_y, "문제 유형은 OX/객관식/주관식 입니다.");
+
+    s_x = origin_x + width/2 - 17;
+    s_y = origin_y +7; 
+    gotoxy(s_x, s_y);
+    showText(s_x, s_y, "보기가 땅에 닿을때까지 엔터를 치지 않으면");
+
+    s_x = origin_x + width/2 - 17;
+    s_y = origin_y +8; 
+    gotoxy(s_x, s_y);
+    showText(s_x, s_y, "작성중인 답안이 자동으로 제출됩니다.");
+
+    s_x = origin_x + width/2 - 17;
+    s_y = origin_y +9; 
+    gotoxy(s_x, s_y);
+    showText(s_x, s_y, "오답 입력시 게임 오버됩니다.");
+
+    s_x = origin_x + width/2 - 17;
+    s_y = origin_y +10; 
+    gotoxy(s_x, s_y);
+    showText(s_x, s_y, "한글 오입력 시 backspace 3번 눌러야 지워집니다.");
+}
+
+
+void showMenu();
+
 
 void Map::removeQuiz()
 {

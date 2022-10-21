@@ -111,7 +111,7 @@ void QuizManager::randomQuiz(){
 	int num = getNumQuiz();
     uniform_int_distribution<int> dis(0,99);
 	int idx1, idx2;
-    for (int i = 0; i < 50; i++){
+    for (int i = 0; i < 100; i++){
 		idx1 = dis(gen)%num;
 		idx2 = dis(gen)%num;
 
