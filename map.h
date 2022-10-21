@@ -188,6 +188,7 @@ class Map{
     Text textName;
     Text textAnswer;
     Text textLevel;
+    Text textAnswerResult;
     
     string strAnswer;
     string strName;
@@ -206,6 +207,7 @@ public:
     void showLevel(int level);        
     void showName(string name);        
     void showAnswer(string name);
+    void showAnswerResult(string name);
     void showText(int x, int y, string text);
     void showResultFrame();
     void showResultInfo(PlayerManager& pm);    
@@ -214,6 +216,7 @@ public:
     void removeRain();
     void removeScore();
     void removeAnswer();
+    void removeAnswerResult();
     void removeName();   
 
     

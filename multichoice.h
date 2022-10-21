@@ -11,4 +11,5 @@ public:
     bool checkAnswer(string choosen_ans);
     vector<string> getAnswers();
     int getQuestionScore(){return score;}
+    int getLevel(){return level;}
 };

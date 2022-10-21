@@ -90,8 +90,15 @@ bool QuizManager::callCheckAnswer(int n, string choice_answer){
 		return false;
 }
 
-vector<string> QuizManager::sendGetAnswers(){
-	vector<string> tm =	quizList[1]->getAnswers();
+vector<string> QuizManager::sendGetAnswers(int n){
+	vector<string> tm =	quizList[n]->getAnswers();
 	return tm;
 }
 
+int QuizManager::getQuizLevel(int n){
+	return quizList[n]->getLevel();
+}
+
+void QuizManager::setTotalSocre(){
+	totalScore = 0;
+}
