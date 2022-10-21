@@ -41,6 +41,8 @@ int main(void)
         cin.ignore();
         switch(choice){
             case 1:{
+                q_manager.randomQuiz(); // 퀴즈 셔플
+
                 cout << "이름을 입력해주세요 :";
                 getline(cin, name);
                 q_manager.setTotalSocre();
@@ -50,11 +52,11 @@ int main(void)
                     map.showFrame('*');
                     map.showName(name);
                     map.showQuiz(q_manager.getQuiz(i));
+                    map.showLevel(q_manager.getQuizLevel(i));
                     p_manager.setScoreByName(name, q_manager.getTotalScore());
                     map.showScore(q_manager.getTotalScore());
                     map.showRain(q_manager.sendGetAnswers(i), 1000000);
                     string quizans = map.waitAnswer();
-                    //map.showAnswer(quizans);
 
                     if (q_manager.callCheckAnswer(i,quizans) == true){
                         p_manager.setScoreByName(name, q_manager.getTotalScore());
@@ -63,7 +65,6 @@ int main(void)
                         map.removeAnswer();
                         map.showAnswerResult("정답입니다.\n");                 
                         sleep(2);
-                        //map.removeAnswerResult();
                         
                         continue;
                     }
