@@ -1,4 +1,5 @@
 #include "shortanswer.h"
+#include <cstring>
 
 ShortAnswer::ShortAnswer(string question, int level, int score, string answer) : Quiz(question, level, score){
     this->answer = answer;
@@ -13,7 +14,7 @@ void ShortAnswer::showAnswer(){
 }
 
 bool ShortAnswer::checkAnswer(string choosen_ans){
-    if (this->answer == choosen_ans)
+    if (strcasecmp(this->answer.c_str(),choosen_ans.c_str())==0)
         return true;
     else   
         return false;
