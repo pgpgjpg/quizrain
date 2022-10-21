@@ -68,10 +68,10 @@ int main(void)
                         quizans=map.waitAnswer();
                         new_time = clock();
                         if(difftime(new_time, old_time) > 15000){
-                            quizans = "";
+                            quizans = "timeout";
                             break;
                         }
-                    }while (quizans == "");
+                    }while (quizans == "waiting");
 */
 
                     if (q_manager.callCheckAnswer(i,quizans) == true){
