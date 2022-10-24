@@ -2,30 +2,7 @@
 #include <ctime>
 #include <cstdlib>
 #include <atomic>
-// #ifndef LINUX_KBHIT_H_
-// #define LINUX_KBHIT_H_
-// #include <stdio.h>
-// #include <termios.h>
-// #include <atomic>
-// //#include <unistd.h>
 
-
-
-// int linux_kbhit(void)
-// {
-//     struct termios oldt, newt; 
-//     int ch;
-//     tcgetattr( STDIN_FILENO, &oldt ); 
-//     newt = oldt;
-//     newt.c_lflag &= ~( ICANON | ECHO ); 
-//     tcsetattr( STDIN_FILENO, TCSANOW, &newt );    
-//     ch = getchar();
-//     tcsetattr( STDIN_FILENO, TCSANOW, &oldt );
-//     return ch;
-// }
-// #endif
-
-//atomic<int> rainCnt(0);
 int rainCnt;
 pthread_mutex_t mutexid;
 void* rain_thread(void *arg);
@@ -179,7 +156,7 @@ void Map::showRain(vector<string> answers, int fallingTime)
         int s_x = rainX*i + 3;
         int s_y = origin_y + 3;
 
-        sr[i].set(s_x, s_y, height-4, answers[i], fallingTime*ratio);    
+        sr[i].setRain(s_x, s_y, height-4, answers[i], fallingTime*ratio);    
         pthread_create(&vThreads[i], NULL, rain_thread, &sr[i]);            
     }       
     //getAnswer();    
