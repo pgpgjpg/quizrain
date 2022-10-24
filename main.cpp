@@ -8,7 +8,7 @@ using namespace std;
 #include "quizmanager.h"
 #include "map.h"
 #include "playerManager.h"
-#define N_LIFE 3
+#define N_LIFE 2
 #ifndef LINUX_KBHIT_H_
 #define LINUX_KBHIT_H_
 #include <stdio.h>
@@ -88,21 +88,23 @@ int main(void)
     PlayerManager p_manager;
     Map map;
     
+    map.showResultFrame();
+    map.showWarning();
+    getchar();
 
     while(true){
         system("clear");
         string ans;
         int choice;
         
-        map.showResultFrame();
-        map.showWarning();
-        getchar();
         map.cleanWindow();
         map.showResultFrame();
         map.showMenu();        
 
         cin >> choice;
+        cin.clear();
         cin.ignore();
+
         switch(choice){
             case 1:{
                 int life = N_LIFE;
@@ -177,10 +179,9 @@ int main(void)
             default :
                 gotoxy(32,17);
                 cout << "잘못 입력하셨습니다 다시 입력해주세요" << endl;
-                sleep(3);
+                getchar();
                 break;
         }
-        
     }
 	return 0;
 }
