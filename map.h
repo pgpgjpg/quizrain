@@ -153,12 +153,12 @@ class StringRain : public Point
 protected:	
     string text;
     int height;
-    double speed;
+    int speed;
 
 public:
     StringRain():Point(0, 0) {}
 	StringRain(int ax, int ay, int height, string text, int speed) : Point(ax, ay) { this->height = height; this->text = text; this->speed = speed;}
-    void set(int ax, int ay, int height, string text, int speed) { x = ax; y = ay; this->height = height; this->text = text; this->speed = speed;}
+    void setRain(int ax, int ay, int height, string text, int speed) { x = ax; y = ay; this->height = height; this->text = text; this->speed = speed;}
 	void show() {   
         for(int r = y; r < height; ++r){
             gotoxy(x, r);        
@@ -177,11 +177,7 @@ class Map{
     int origin_x, origin_y;
     int width;
     int height;
-    int time;
-    int maxLenStr;
-    int nThreads;
-    
-    bool stopRain;
+    int nThreads;    
 
     Text textQuiz;    
     Text textScore;
@@ -190,18 +186,15 @@ class Map{
     Text textLevel;
     Text textAnswerResult;
     Text textShow;
-    Text textLife;
-    
-    
-    string strName;
+    Text textLife;       
 
     pthread_t *vThreads;    
     StringRain *sr;
     
 public:
     string strAnswer;
-    Map() : width(100), height(25), origin_x(0), origin_y(2), maxLenStr(100/2-2) {strAnswer = "NULL";}
-    Map(int w, int h) : width(w), height(h), origin_x(0), origin_y(2), maxLenStr(w/2-2) {strAnswer = "NULL";}
+    Map() : width(100), height(25), origin_x(0), origin_y(2) {strAnswer = "NULL";}
+    Map(int w, int h) : width(w), height(h), origin_x(0), origin_y(2) {strAnswer = "NULL";}
     ~Map();
     void showFrame(char ch);    
     void showQuiz(string text);        
@@ -230,5 +223,4 @@ public:
 
     void resetForWriteAnswer();
     string waitAnswer();
-    //void getAnswer();
 };
