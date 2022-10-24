@@ -88,15 +88,15 @@ int main(void)
     PlayerManager p_manager;
     Map map;
     
+    map.showResultFrame();
+    map.showWarning();
+    getchar();
 
     while(true){
         system("clear");
         string ans;
         int choice;
         
-        map.showResultFrame();
-        map.showWarning();
-        getchar();
         system("clear");
         cout << "게임" << endl;
         cout << "1. 게임 시작" << endl;
@@ -104,11 +104,12 @@ int main(void)
         cout << "3. 종료" << endl;
 
         cin >> choice;
+        cin.clear();
         cin.ignore();
+
         switch(choice){
             case 1:{
                 q_manager.randomQuiz(); // 퀴즈 셔플
-
                 cout << "이름을 입력해주세요 :";
                 getline(cin, name);
                 q_manager.setTotalSocre();
@@ -171,10 +172,9 @@ int main(void)
                 
             default :
                 cout << "잘못 입력하셨습니다 다시 입력해주세요" << endl;
-                sleep(3);
+                getchar();
                 break;
         }
-        
     }
 	return 0;
 }

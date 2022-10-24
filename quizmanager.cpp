@@ -12,6 +12,10 @@ struct Minus : exception {
   const char* what() const noexcept {return "양수를 입력하세요.\n";}
 };
 
+struct NoQuizType : exception {
+  const char* what() const noexcept {return "퀴즈 텍스트파일에 타입이 정의되있지 않습니다. 퀴즈파일을 확인해주세요.\n";}
+};
+
 void QuizManager:: fileRead(ifstream &fin){
 	string line;
 
@@ -30,39 +34,47 @@ void QuizManager:: fileRead(ifstream &fin){
 			if(k==line.size())break;
 			
 		}
-		if(partName[0] == "OX"){ //OX퀴즈일때
-			try{
-				if (partName[4][0] != 'O' && partName[4][0] != 'X')
-					throw NotOX();
-				quizList.push_back(new OX(partName[1], stoi(partName[2]), stoi(partName[3]), partName[4][0]));
+		
+		try{
+			if(partName[0] != "OX" && partName[0] != "multi" && partName[0] != "short")
+				throw NoQuizType();
+			if(partName[0] == "OX"){ //OX퀴즈일때
+				try{
+					if (partName[4][0] != 'O' && partName[4][0] != 'X')
+						throw NotOX();
+					quizList.push_back(new OX(partName[1], stoi(partName[2]), stoi(partName[3]), partName[4][0]));
+				}
+				catch(exception& e){
+        			cout << partName[0] << ": " << e.what();
+				}
 			}
-			catch(exception& e){
-        		cout << partName[0] << ": " << e.what();
+			else if(partName[0] == "multi"){ //객관식퀴즈일때
+				try{
+					if (stoi(partName[2]) < 0)
+						throw Minus();
+					if (stoi(partName[3]) < 0)
+						throw Minus();
+					quizList.push_back(new MultiChoice(partName[1], stoi(partName[2]), stoi(partName[3]),stoi(partName[4]), partName[5], partName[6], partName[7], partName[8]));
+				}
+				catch(exception& e){
+        			cout << partName[0] << ": " << e.what();
+				}
+			}
+			else if(partName[0] == "short"){ //주관식퀴즈일때
+				try{
+					if (stoi(partName[2]) < 0)
+						throw Minus();
+					if (stoi(partName[3]) < 0)
+						throw Minus();
+					quizList.push_back(new ShortAnswer(partName[1], stoi(partName[2]), stoi(partName[3]), partName[4]));
+				}
+				catch(exception& e){
+        			cout << partName[0] << ": " << e.what();
+				}
 			}
 		}
-		else if(partName[0] == "multi"){ //객관식퀴즈일때
-			try{
-				if (stoi(partName[2]) < 0)
-					throw Minus();
-				if (stoi(partName[3]) < 0)
-					throw Minus();
-				quizList.push_back(new MultiChoice(partName[1], stoi(partName[2]), stoi(partName[3]),stoi(partName[4]), partName[5], partName[6], partName[7], partName[8]));
-			}
-			catch(exception& e){
-        		cout << partName[0] << ": " << e.what();
-			}
-		}
-		else if(partName[0] == "short"){ //주관식퀴즈일때
-			try{
-				if (stoi(partName[2]) < 0)
-					throw Minus();
-				if (stoi(partName[3]) < 0)
-					throw Minus();
-				quizList.push_back(new ShortAnswer(partName[1], stoi(partName[2]), stoi(partName[3]), partName[4]));
-			}
-			catch(exception& e){
-        		cout << partName[0] << ": " << e.what();
-			}
+		catch(exception& e){
+        	cout << e.what();
 		}
 	}
 }
