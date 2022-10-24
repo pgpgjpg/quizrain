@@ -48,10 +48,10 @@ void getAnswer(Map* map)
     char c;    
 
     while(c != '\n'){        
-        c = linux_kbhit();           
+        c = linux_kbhit();         
         if(c == '\n') break;
         
-        if(c == 127 && res.size() > 0){
+        if((c == 127 ||c == 8) && res.size() > 0){
             res.pop_back(); 
             map->removeAnswer(); 
         }                  
