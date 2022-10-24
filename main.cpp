@@ -8,7 +8,7 @@ using namespace std;
 #include "quizmanager.h"
 #include "map.h"
 #include "playerManager.h"
-
+#define N_LIFE 3
 #ifndef LINUX_KBHIT_H_
 #define LINUX_KBHIT_H_
 #include <stdio.h>
@@ -97,20 +97,22 @@ int main(void)
         map.showResultFrame();
         map.showWarning();
         getchar();
-        system("clear");
-        cout << "게임" << endl;
-        cout << "1. 게임 시작" << endl;
-        cout << "2. 랭크 확인" << endl;                
-        cout << "3. 종료" << endl;
+        map.cleanWindow();
+        map.showResultFrame();
+        map.showMenu();        
 
         cin >> choice;
         cin.ignore();
         switch(choice){
             case 1:{
+                int life = N_LIFE;
                 q_manager.randomQuiz(); // 퀴즈 셔플
-
-                cout << "이름을 입력해주세요 :";
+                map.cleanWindow();
+                map.showResultFrame();
+                map.showInsertNameFrame();  
                 getline(cin, name);
+                if(name.length() > 10) name = name.substr(0, 10);
+                cout << "Name : " << name << endl;
                 q_manager.setTotalSocre();
                 p_manager.addPlayer(make_shared<Player>(name, 0));
 
@@ -121,6 +123,7 @@ int main(void)
                     map.showName(name);
                     map.showQuiz(q_manager.getQuiz(i));
                     map.showLevel(q_manager.getQuizLevel(i));
+                    map.showLife(life);
                     p_manager.setScoreByName(name, q_manager.getTotalScore());
                     map.showScore(q_manager.getTotalScore());
                     map.showRain(q_manager.sendGetAnswers(i), 1000000);                                        
@@ -145,8 +148,9 @@ int main(void)
                         map.removeAnswer();
                         map.showAnswerResult("오답입니다.\n");
                         map.removeRain();
-                        sleep(2);                        
-                        break;
+                        sleep(2);    
+                        if(--life == 0)                    
+                            break;
                     }
                     
                      
@@ -167,9 +171,11 @@ int main(void)
             
                 
             case 3:
+                map.cleanWindow();
                 return 0;
                 
             default :
+                gotoxy(32,17);
                 cout << "잘못 입력하셨습니다 다시 입력해주세요" << endl;
                 sleep(3);
                 break;

@@ -190,6 +190,7 @@ class Map{
     Text textLevel;
     Text textAnswerResult;
     Text textShow;
+    Text textLife;
     
     
     string strName;
@@ -208,13 +209,15 @@ public:
     void showScore(int score);   
     void showLevel(int level);        
     void showName(string name);        
-    void showAnswer(string name);
+    void showLife(int life);  
+    void showAnswer(string name);    
     void showAnswerResult(string name);
     void showText(int x, int y, string text);
     void showResultFrame();
     void showResultInfo(PlayerManager& pm);
     void showWarning();
     void showMenu();
+    void showInsertNameFrame();
 
     void removeQuiz();
     void removeRain();
@@ -222,6 +225,8 @@ public:
     void removeAnswer();
     void removeAnswerResult();
     void removeName();   
+
+    void cleanWindow() {clearTerminal();}
 
     void resetForWriteAnswer();
     string waitAnswer();
