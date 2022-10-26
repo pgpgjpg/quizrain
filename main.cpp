@@ -15,6 +15,8 @@ using namespace std;
 #include <termios.h>
 //#include <unistd.h>
 
+// 어떤 파일이든 상관 없어요
+
 void cleanup(void *arg)
 {
     struct termios oldt, newt;     
